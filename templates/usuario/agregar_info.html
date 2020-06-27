@@ -1,0 +1,107 @@
+{% extends 'usuario/perfil.html' %}
+{% load staticfiles  %}
+{% block perfil %}
+{% endblock perfil %}
+{% block titulo %}<title>Agregar Info - {{user.nombre}}</title>{% endblock titulo %}
+
+
+          {% block info_perfil %}
+              <div class="col-md-3">
+                <div class="profile-info">
+                    <img src="{{user.foto_perfil.url}}" alt="" class="img-responsive profile-photo" />
+                  <h3>{{ user.nombre }} {{ user.apellido }}</h3>
+                  <p class="text-muted">{{ user.tipo_usuario.nombre }} en {{ user.carrera }}</p>
+                </div>
+              </div>
+          {% endblock info_perfil %}
+
+  {% block editar_perfil %}
+
+    </div>
+        <div id="page-contents">
+          <div class="row">
+            
+            <div class="col-md-3">
+              
+              <!--Edit Profile Menu-->
+              <ul class="edit-menu">
+              	<li ><i class="icon ion-ios-information-outline"></i><a href="{% url 'usuario:editar_perfil' user.id %}">Informacion Basica</a></li>
+              	<li class = 'active'><i class="icon ion-heart"></i><a href="{% url 'usuario:editar_hobbies' user.id %}">Gustos, Hobbies, más..</a></li>
+
+              	<li><i class="icon ion-ios-locked-outline"></i><a href="{% url 'password_change'  %}">Cambia la contraseña</a></li>
+              </ul>
+            </div>
+            <div class="col-md-7">
+
+              <!-- Basic Information
+              ================================================= -->
+              <div class="edit-profile-container">
+                <div class="block-title">
+                  <h4 class="grey"><i class="icon ion-heart"></i>Gustos, Hobbies y más...</h4>
+                  <div class="line"></div>
+                  
+                  <div class="line"></div>
+                </div>
+                <div class="edit-block">
+
+                  <form  method = "POST" name="basic-info" id="basic-info" class="form-inline" enctype="multipart/form-data">
+                      {% csrf_token %}
+                    <div class="row">
+                      <div class="form-group col-xs-6">
+                        <label for="firstname">¿Cúal es tu situación sentimental?</label>
+                        {% if object.situacion_sentimental == "No hay datos" %}
+                          <input id="firstname" class="form-control input-group-lg" type="text" name="situacion_sentimental" id="nombre" title="Situación Sentimental" placeholder="Solter@" required />
+                        {% else %}
+                          <input id="firstname" class="form-control input-group-lg" type="text" name="situacion_sentimental" id="nombre" title="Situación Sentimental" placeholder="Solter@"  value="{{ object.situacion_sentimental }}" required />
+                        {% endif %}
+                      
+                      </div>
+
+                    <div class="row">
+                      <div class="form-group col-xs-12">
+                        <label for="edu-description">Cuentanos que te gusta hacer. Menciona tus Hobbies</label>
+                        
+                        {% if object.hobbies == "No hay datos" %}
+                          <textarea id="edu-description" name="hobbies" class="form-control" placeholder="¿Que te gusta? ¿Qué sabes hacer?" rows="4" cols="400"></textarea>
+                        {% else %}
+                          <textarea id="edu-description" name="hobbies" class="form-control" placeholder="¿Que te gusta? ¿Qué sabes hacer?" rows="4" cols="400">{{ object.hobbies }}</textarea>
+                        {% endif %}
+                      
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group col-xs-12">
+                        <label for="edu-description">Pon una pequeña descripción de tí. Esto hará que tu perfil sea más visto.</label>
+                        
+                        {% if object.descripcion_breve == "No hay datos" %}
+                          <textarea id="edu-description" name="descripcion_breve" class="form-control" placeholder="¿Quien soy? " rows="4" cols="400"></textarea>
+                        {% else %}
+                          <textarea id="edu-description" name="descripcion_breve" class="form-control" placeholder="¿Quien soy? " rows="4" cols="400">{{ object.descripcion_breve }}</textarea>
+                        {% endif %}
+                      
+                      </div>
+                    </div>
+                    <br>
+                    
+                    <button class="btn btn-primary" type="submit">Guardar Cambios</button>
+                  </form>
+                </div>
+
+                {% if form.errors %}
+                  {{ form.errors }}
+                
+                {% endif %}
+              </div>
+            </div>
+        <div class="col-md-2 static">
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTMXfmDn0VlqWIyoOxK8997L-amWbUPiQ&callback=initMap"></script>
+<script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/jquery.sticky-kit.min.js' %}"></script>
+<script src="{% static 'js/jquery.scrollbar.min.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+<script src="{% static 'js/visualizar_foto.js' %}"></script>
+{% endblock editar_perfil %}
+   
+

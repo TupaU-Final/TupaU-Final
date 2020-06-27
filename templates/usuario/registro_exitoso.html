@@ -1,0 +1,14 @@
+{% extends 'usuario/base.html' %}
+{% block title %}
+  ¡Registro Exitoso! | TupaU
+{% endblock title %}
+
+{% block formulario %}
+    <h1 style="position: relative; top: 100px;" class="inicia-sesion text-center registro">
+        ¡Gracias Por Registrarse!
+        <br><br>
+        <a href="{% url 'login' %}" class="mt-3 btn-ingresar toggle">Iniciar Sesión</a>
+    </h1>
+
+
+{% endblock formulario %}

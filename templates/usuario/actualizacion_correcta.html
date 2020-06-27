@@ -1,0 +1,61 @@
+{% extends 'usuario/perfil.html' %}
+{% load staticfiles  %}
+
+{% block amigos_user %}
+<li><a href="{% url 'usuario:amigos_usuario' user.id %}">Amigos</a></li>
+{% endblock amigos_user %}
+
+{% block titulo %}<title>¡Actualización Correcta!</title>{% endblock titulo %}
+{% block info_perfil %}
+    <div class="col-md-3">
+    <div class="profile-info">
+        {% block imagen_perfil %}
+            <img src="{{user.foto_perfil.url}}" alt="" class="img-responsive profile-photo" />
+        {% endblock imagen_perfil %}
+        <h3>{{ user.nombre }} {{ user.apellido }}</h3>
+        <p class="text-muted">{{ user.tipo_usuario.nombre }} en {{ user.carrera }}</p>
+    </div>
+    </div>
+
+    {% block detalle_user %}
+      <li><a href="{% url 'usuario:detalle_perfil_usuario' user.id%}">Detalle del Perfil</a></li>
+    {% endblock detalle_user %}
+{% endblock info_perfil %}
+
+
+{% block perfil %}
+    </div>
+        <div id="page-contents">
+          <div class="row">
+            <div class="col-md-3">
+              
+              <!--Edit Profile Menu-->
+              <ul class="edit-menu">
+              	<li class=""><i class="icon ion-ios-information-outline"></i><a href="{% url 'usuario:editar_perfil' user.id %}">Informacion Basica</a></li>
+              	<li><i class="icon ion-heart"></i><a href="{% url 'usuario:editar_hobbies' user.id  %}">Gustos, Hobbies, más..</a></li>
+
+              	<li><i class="icon ion-ios-locked-outline"></i><a href="{% url 'password_change' %}">Cambia la contraseña</a></li>
+              </ul>
+            </div>
+            <div class="col-md-7">
+
+              <!-- Basic Information
+              ================================================= -->
+              <div class="edit-profile-container">
+                <div class="block-title">
+                  
+                  <div class="line"></div>
+                  
+                  <div class="line"></div>
+                </div>
+                <div class="edit-block">
+                <br>
+                    <center><h1 class="grey"><i class="icon ion-android-checkmark-circle"></i>¡Actualización Correcta!</h1></center>
+                    <center><a href="{% url 'usuario:perfil_usuario' user.id %}">Volver al Pérfil</a></center>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>        
+{% endblock perfil %}

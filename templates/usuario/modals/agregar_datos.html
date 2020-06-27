@@ -1,0 +1,112 @@
+{% if user.nombre %}
+{% load staticfiles %}
+
+<div class="modal fade" id="datosModal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" style="color: black;">{{ user.nombre}} Vamos a terminar de una vez por todas</h2>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" >&times;</span>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="edit-profile-container">
+                    <div class="block-title">
+                        <h4 class="grey"><i class="icon ion-android-checkmark-circle"></i>Solo faltan unas pocas cosas que puedas disfrutar de TupaU</h4>
+                        <div class="line"></div>
+                        
+                        <div class="line"></div>
+                    </div>
+                    <div class="edit-block">
+                            <form  method="POST"  action="{% url 'usuario:llenar_datos' user.id  %}" name="basic-info" id="basic-info" class="form-inline"  enctype="multipart/form-data">
+                            {% csrf_token %}
+                        <div class="row">
+                        <div class="form-group col-xs-6">
+                            <label for="firstname">¿Dónde estudias?</label>
+                            <input id="firstname" class="form-control input-group-lg" type="text" name="universidad" title="¿Dónde estudias?" placeholder="Universidad de Antioquia" value="{{ object.nombre }}"  required/>
+                        </div>
+                        <div class="form-group col-xs-6">
+                            <label for="lastname" class="">¿Qué estudias?</label>
+                            <input id="lastname" class="form-control input-group-lg" type="text" name="carrera" title="¿Qué estudias?" placeholder="Ingeniería en Sistemas" value="{{ object.apellido }}" required />
+                        </div>
+                        <div class="form-group col-xs-6">
+                            <label for="lastname" class="">¿Qué eres?</label>
+                            <select class="form-control" id="month" name="tipo_usuario" required>
+                                <option value="1">¿Qué eres?</option>
+                                <option value="2">Estudiante</option>
+                                <option value="3">Docente</option>
+                            </select>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <p class="custom-label"><strong>Fecha de nacimiento</strong></p>
+                        <div class="form-group col-sm-3 col-xs-6">
+                            <label for="month" class="sr-only"></label>
+                            <select class="form-control" id="day" name="fecha_nacimiento_day" required>
+                            <option value = "1" selected>1</option>
+                            <script> for(var i=2;  i<=31; i++){
+                                document.write("<option value = "+i+">"+i+"</option>");
+                            } </script>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-3 col-xs-6">
+                            <label for="month" class="sr-only">Mes</label>
+                            <select class="form-control" id="month" name="fecha_nacimiento_month" required>
+                                <option value="month">Mes</option>
+                                <option value="1">Enero</option>
+                                <option value="2">Febrero</option>
+                                <option value="3">Marzo</option>
+                                <option value="4">Abril</option>
+                                <option value="5">Mayo</option>
+                                <option value="6">Junio</option>
+                                <option selected value="7">Julio</option>
+                                <option value="8">Agosto</option>
+                                <option value="9">Septiembre</option>
+                                <option value="10">Octubre</option>
+                                <option value="11">Noviembre</option>
+                                <option value="12" >Diciembre</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-12">
+                            <label for="year" class="sr-only"></label>
+                            <select class="form-control" id="year" name="fecha_nacimiento_year" required>
+                            <option value="year">Año</option>
+                            <option selected>2020</option>
+                                <script> for(var i=2019;  i>=1958; i--){
+                                document.write("<option value = "+i+">"+i+"</option>");
+                            } </script>
+                            </select>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="form-group col-xs-12">
+                            <label for="my-info">Foto de Perfil</label>
+                            <input type="file" name="foto_perfil" id="input-perfil" class="form-control" accept="image/*" required>
+                        </div>
+                        <div class="form-group col-xs-12 " id="previewImage">
+                                <img src="{{ user.foto_perfil.url }}" alt="user" class="" id="fotoPerfil" height="120" width="120"/>
+                        </div>
+                        </div>
+                        
+                        <div class="modal-footer">
+                            <button class="btn btn-danger" type="button" data-dismiss="modal">
+                                <i class="fas fa-times-circle"></i>
+                            </button>
+                            <button class="btn btn-success" type="submit">
+                                <i class="fas fa-check"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                </div>
+                </div>
+            
+        </div>
+    </div>
+</div>
+
+{% else %}
+<h2>NO SE PUEDE VISUALIZAR</h2>
+{% endif %}

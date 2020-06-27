@@ -1,0 +1,25 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?Contrase=C3=B1a_restablecida_en_localhost=3A8000?=
+From: webmaster@localhost
+To: jj@jj.com
+Date: Fri, 29 May 2020 04:35:58 -0000
+Message-ID: <159072695859.9060.8337821912010722518@DESKTOP-ETDVLEM>
+
+
+Ha recibido este correo electrónico porque ha solicitado restablecer la contraseña para su cuenta en localhost:8000.
+
+Por favor, vaya a la página siguiente y escoja una nueva contraseña.
+
+http://localhost:8000/accounts/reset/MTc/5gv-c83b53692b6225216aa4/
+
+Su nombre de usuario, en caso de haberlo olvidado: jj@jj.com
+
+¡Gracias por usar nuestro sitio!
+
+El equipo de localhost:8000
+
+
+
+-------------------------------------------------------------------------------

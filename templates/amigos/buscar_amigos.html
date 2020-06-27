@@ -1,0 +1,88 @@
+{% extends "inicio.html" %}
+
+{% block titulo %} Buscar Amigos {% endblock titulo %}
+
+{% block publicar %}
+ {% if user.universidad == "Sin registro" %}
+              <div></div>
+              {% else %}
+            
+            <form  method="POST">
+              {% csrf_token %}
+              <div class="create-post">
+                <div class="row">
+                  <div class="col-md-7 col-sm-7">
+                    <div class="form-group">
+                      <img src="{{ user.foto_perfil.url }}" alt="" class="profile-photo-md" />
+                      <input type="text" name="search_user" id="" class="form-control" placeholder="Buscar usuario..." value="{{ request.POST.search_user  }}" required>                
+                    </div>
+                  </div>
+                  <div class="col-md-5 col-sm-5">
+                    <div class="tools">
+                   
+                      <br><br>  
+                      <button class="btn btn-primary pull-right" type="submit">Buscar</button>
+                  
+                    </div>
+                  </div>
+                </div>
+              </div><!-- Post -->
+            </form>
+          
+          {% endif %}
+{% endblock publicar %}
+
+{% block contenido %}
+{% if usuario %}
+{% for user in usuario %}
+  <div class="col-md-6 col-sm-6">
+    <div class="friend-card">
+      <img src="https://image.freepik.com/foto-gratis/verde-claro-pintado-color-liso-transparente-texturado-enyesado-fondo-pared-aspera_46187-465.jpg" alt="profile-cover" class="img-responsive cover" />
+      <div class="card-info">
+        <img src="{{ user.foto_perfil.url }}" alt="user" class="profile-photo-lg" />
+        <div class="friend-info">
+          <a href="{% url 'amigos:send-request' user.username %}" class="pull-right text-green">Enviar Solicitud</a>
+          <h5><a href="{% url 'usuario:perfil_usuario' user.id %}" class="profile-link">{{ user.nombre }} {{ user.apellido }}</a></h5>
+          <p>{{ user.carrera }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+{% else %}
+<center><h1>No se encontró a: {{ request.POST.search_user }}</h1></center>
+{% endif %}
+
+{% endblock contenido %}
+
+ {% block solicitudes %}
+      
+              {% endblock solicitudes %}
+<script>
+
+function mensaje(msg, color='green'){
+            
+    if (color=='success')
+    {
+        color="green";
+    }
+    if (color=='error')
+    {
+        color="red";
+    }
+    $.alert({
+        title:'',
+        theme:'material',
+        type:color,
+        content:msg
+    });
+}
+
+{% if messages %}
+    {% for message in messages %}
+        console.log("{{ message.tags }}");
+        mensaje("{{ message }}", "{{ message.tags }}");
+    {% endfor %}
+{% endif %}
+
+</script>

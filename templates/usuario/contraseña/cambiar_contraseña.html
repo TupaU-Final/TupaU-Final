@@ -1,0 +1,85 @@
+{% extends 'usuario/perfil.html' %}
+
+{% block titulo %}<title>Perfil de {{user.nombre}}</title>{% endblock titulo %}
+
+{% block amigos_user %}
+<li><a href="{% url 'usuario:amigos_usuario' user.id %}">Amigos</a></li>
+{% endblock amigos_user %}
+
+{% block info_perfil %}
+    <div class="col-md-3">
+    <div class="profile-info">
+        {% block imagen_perfil %}
+            <img src="{{user.foto_perfil.url}}" alt="" class="img-responsive profile-photo" />
+        {% endblock imagen_perfil %}
+        <h3>{{ user.nombre }} {{ user.apellido }}</h3>
+        <p class="text-muted">{{ user.tipo_usuario.nombre }} en {{ user.carrera }}</p>
+    </div>
+    </div>
+{% endblock info_perfil %}
+
+
+{% block detalle_perfil %}
+
+  <li><a href="{% url 'usuario:detalle_perfil_usuario' user.id%}">Detalle del Perfil</a></li>
+
+{% endblock %}
+
+{% block perfil %}
+     <div id="page-contents">
+          <div class="row">
+            <div class="col-md-3">
+              
+              <!--Edit Profile Menu-->
+              <ul class="edit-menu">
+              	<li ><i class="icon ion-ios-information-outline"></i><a href="{% url 'usuario:editar_perfil' user.id %}">Informacion Basica</a></li>
+              	<li><i class="icon ion-heart"></i><a href="{% url 'usuario:editar_hobbies' user.id  %}">Gustos, Hobbies, más..</a></li>
+
+              	<li class="active"><i class="icon ion-ios-locked-outline"></i><a href="{% url 'password_change' %}">Cambia la contraseña</a></li>
+              </ul>
+            </div>
+            <div class="col-md-7">
+
+              <!-- Change Password
+              ================================================= -->
+              <div class="edit-profile-container">
+                <div class="block-title">
+                  <h4 class="grey"><i class="icon ion-ios-locked-outline"></i>Cambia la contraseña</h4>
+                  <div class="line"></div>
+                  
+                  <div class="line"></div>
+                </div>
+                <div class="edit-block">
+                  <form method="POST" name="update-pass" id="education" class="form-inline">
+                    {% csrf_token %}
+                    <div class="row">
+                      <div class="form-group col-xs-12">
+                        <label for="my-password">Contraseña anterior</label>
+                        <p><input type="password" name="old_password" autofocus="" required="" id="id_old_password"class="form-control" placeholder="Contraseña antigua"></p>                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group col-xs-6">
+                        <label>Nueva contraseña</label>
+                        <p><input type="password" name="new_password1" required="" id="id_new_password1" class="form-control" placeholder="Contraseña nueva"></p>
+                      </div>
+                      <div class="form-group col-xs-6">
+                        <label>Confirmar contraseña</label>
+                        <p><input type="password" name="new_password2" required="" id="id_new_password2" class="form-control" placeholder="Confirmar Contraseña"></p>
+                        
+                      </div>
+                    </div>
+                    <p><a href="#">Se te olvidó la contraseña?</a></p>
+
+                    {% for field in form %}
+                      {% for error in field.errors %}
+                        <li style="color: red">{{ error }}</li>
+                      {% endfor %}
+                    {% endfor %}
+
+                    <button class="btn btn-primary" type="submit">Actualizar Contraseña</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2 static">
+{% endblock perfil %}

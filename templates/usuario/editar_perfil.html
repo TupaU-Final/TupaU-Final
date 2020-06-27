@@ -1,0 +1,158 @@
+{% extends 'usuario/perfil.html' %}
+{% load staticfiles  %}
+
+{% block perfil %}
+    </div>
+        <div id="page-contents">
+          <div class="row">
+            {% if object.username == user.username %}
+            <div class="col-md-3">
+              
+              <!--Edit Profile Menu-->
+              <ul class="edit-menu">
+              	<li class="active"><i class="icon ion-ios-information-outline"></i><a href="{% url 'usuario:editar_perfil' user.id %}">Informacion Basica</a></li>
+              	<li><i class="icon ion-heart"></i><a href="{% url 'usuario:editar_hobbies' user.id  %}">Gustos, Hobbies, más..</a></li>
+
+              	<li><i class="icon ion-ios-locked-outline"></i><a href="{% url 'password_change' %}">Cambia la contraseña</a></li>
+              </ul>
+            </div>
+            <div class="col-md-7">
+
+              <!-- Basic Information
+              ================================================= -->
+              <div class="edit-profile-container">
+                <div class="block-title">
+                  <h4 class="grey"><i class="icon ion-android-checkmark-circle"></i>Editar informacion basica</h4>
+                  <div class="line"></div>
+                  
+                  <div class="line"></div>
+                </div>
+                <div class="edit-block">
+
+                  <form  method = "POST" name="basic-info" id="basic-info" class="form-inline" enctype="multipart/form-data">
+                      {% csrf_token %}
+                    <div class="row">
+                      <div class="form-group col-xs-6">
+                        <label for="firstname">Nombre</label>
+                        <input id="firstname" class="form-control input-group-lg" type="text" name="nombre" id="nombre" title="Nombre" placeholder="Nombre" value="{{ object.nombre }}" required />
+                      </div>
+                      <div class="form-group col-xs-6">
+                        <label for="lastname" class="">Apellido</label>
+                        <input id="lastname" class="form-control input-group-lg" type="text" name="apellido" title="Apellido" placeholder="Apellido" value="{{ object.apellido }}" required />
+                      </div>
+                      <div class="form-group col-xs-6">
+                        <label for="firstname">Coreo Electrónico</label>
+                        <input id="firstname" class="form-control input-group-lg" type="text" name="email" title="Correo Electrónico" placeholder="Correo Electrónico" value="{{ object.email }}" required />
+                      </div>
+                      <div class="form-group col-xs-6">
+                        <label for="lastname" class="">Nombre de Usuario</label>
+                        <input id="lastname" class="form-control input-group-lg" type="text" name="username" title="Nombre de Usuario" placeholder="Nombre de Usuario" value="{{ object.username }}" required />
+                      </div>
+                      <div class="form-group col-xs-6">
+                        <label for="lastname" class="">¿Dónde Estudias?</label>
+                        <input id="lastname" class="form-control input-group-lg" type="text" name="universidad" title="¿Dónde Estudias?" placeholder="Universidad Nacional" value="{{ object.universidad }}" required />
+                      </div>
+                      <div class="form-group col-xs-6">
+                        <label for="lastname" class="">¿Qué Estudias?</label>
+                        <input id="lastname" class="form-control input-group-lg" type="text" name="carrera" title="¿Qué estudias?" placeholder="Enfermería" value="{{ object.carrera }}" required />
+                      </div>
+                       <div class="form-group col-xs-6">
+                            <label for="lastname" class="">Eres: {{ object.tipo_usuario.nombre }}</label>
+                            <select class="form-control" id="month" name="tipo_usuario" required>
+                                <option value="1">¿Qué eres?</option>
+                                <option value="2" selected>Estudiante</option>
+                                <option value="3">Docente</option>
+                            </select>
+                        </div>
+
+                        
+                    <div class="row">
+                      <div class="form-group col-xs-12">
+                        <label for="email">Años</label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <p class="custom-label"><strong> Tu fecha de nacimiento: {{ object.fecha_nacimiento }}</strong></p>
+                        <div class="form-group col-sm-3 col-xs-6">
+                            <label for="month" class="sr-only"></label>
+                            <select class="form-control" id="day" name="fecha_nacimiento_day" required>
+                            <option value = "1" selected>1</option>
+                            <script> for(var i=2;  i<=31; i++){
+                                document.write("<option value = "+i+">"+i+"</option>");
+                            } </script>
+                            </select>
+                        </div>
+                      <div class="form-group col-sm-3 col-xs-6">
+                        <label for="month" class="sr-only">Mes</label>
+                          <select class="form-control" id="month" name="fecha_nacimiento_month" required>
+                              <option value="month">Mes</option>
+                              <option value="1">Enero</option>
+                              <option value="2">Febrero</option>
+                              <option value="3">Marzo</option>
+                              <option value="4">Abril</option>
+                              <option value="5">Mayo</option>
+                              <option value="6">Junio</option>
+                              <option selected value="7">Julio</option>
+                              <option value="8">Agosto</option>
+                              <option value="9">Septiembre</option>
+                              <option value="10">Octubre</option>
+                              <option value="11">Noviembre</option>
+                              <option value="12" >Diciembre</option>
+                          </select>
+                        </div>
+                         <div class="form-group col-sm-6 col-xs-12">
+                            <label for="year" class="sr-only"></label>
+                            <select class="form-control" id="year" name="fecha_nacimiento_year" required>
+                            <option value="year">Año</option>
+                            <option selected>2020</option>
+                                <script> for(var i=2019;  i>=1958; i--){
+                                document.write("<option value = "+i+">"+i+"</option>");
+                            } </script>
+                            </select>
+                        </div>
+                    </div>
+
+                      <div class="row">
+                        <div class="form-group col-xs-12">
+                            <label for="my-info">Foto de Perfil</label>
+                            <input type="file" name="foto_perfil" id="input-perfil" class="form-control" accept=".png" >
+                            
+                        </div>
+                        <div class="form-group col-xs-12 " id="previewImage">
+                                <img src="{{ user.foto_perfil.url }}" alt="user" class="" id="fotoPerfil" height="120" width="120"/>
+                        </div>
+                        </div>
+                    <br>
+                    
+                    <button class="btn btn-primary" type="submit">Guardar Cambios</button>
+                  </form>
+                </div>
+
+                {% if form.errors %}
+                  {{ form.errors }}
+                
+                {% endif %}
+              </div>
+            </div>
+        <div class="col-md-2 static">
+        {% else %}
+        <div class="edit-block">
+          <center><h1>ALGO SALIÓ MAL</h1></center>
+          <br>
+          <center><h4><a href="{% url 'usuario:perfil_usuario' object.id %}">Volver al Pérfil de {{ object.nombre }}</a></h4></center>
+        </div>
+      {% endif %}
+{% endblock perfil %}
+
+  {% block editar_perfil %}
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTMXfmDn0VlqWIyoOxK8997L-amWbUPiQ&callback=initMap"></script>
+<script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/jquery.sticky-kit.min.js' %}"></script>
+<script src="{% static 'js/jquery.scrollbar.min.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+<script src="{% static 'js/visualizar_foto.js' %}"></script>
+{% endblock editar_perfil %}
+   
+

@@ -1,0 +1,25 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?Contrase=C3=B1a_restablecida_en_localhost=3A8000?=
+From: webmaster@localhost
+To: josejuan250203@gmail.com
+Date: Fri, 29 May 2020 04:14:23 -0000
+Message-ID: <159072566310.14740.14548555269863815630@DESKTOP-ETDVLEM>
+
+
+Ha recibido este correo electrónico porque ha solicitado restablecer la contraseña para su cuenta en localhost:8000.
+
+Por favor, vaya a la página siguiente y escoja una nueva contraseña.
+
+http://localhost:8000/accounts/reset/MTU/5gv-20e1b1d406397838e12c/
+
+Su nombre de usuario, en caso de haberlo olvidado: josejuan250203@gmail.com
+
+¡Gracias por usar nuestro sitio!
+
+El equipo de localhost:8000
+
+
+
+-------------------------------------------------------------------------------

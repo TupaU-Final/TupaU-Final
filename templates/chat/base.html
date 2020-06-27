@@ -1,0 +1,49 @@
+{% extends 'inicio.html' %}
+
+{% block contenido %}
+
+<ul class="nav nav-tabs contact-list scrollbar-wrapper scrollbar-outer">
+
+{% for chat in hilos %}
+    {% for usuario in usuarios %}
+        {% if chat.first_id == user.id and chat.second_id == usuario.id %}
+                <div class="col-md-6 col-sm-6">
+                    <div class="friend-card">
+                    <img src="https://image.freepik.com/foto-gratis/verde-claro-pintado-color-liso-transparente-texturado-enyesado-fondo-pared-aspera_46187-465.jpg" alt="profile-cover" class="img-responsive cover" />
+                    <div class="card-info">
+                        <img src="{{ usuario.foto_perfil.url }}" alt="user" class="profile-photo-lg" />
+                        <div class="friend-info">
+                        <a href="/chat/{{usuario.username}}" class="pull-right text-green">Abrir Chat</a>
+                        <h5><a href="{% url 'usuario:perfil_usuario' usuario.id %}" class="profile-link">{{ usuario.nombre }} {{ usuario.apellido }}</a></h5>
+                        <p>{{ chat.timestamp }}</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+        {% else %}
+            {% if chat.second_id == user.id and chat.first_id == usuario.id %}
+                <div class="col-md-6 col-sm-6">
+                    <div class="friend-card">
+                    <img src="https://image.freepik.com/foto-gratis/verde-claro-pintado-color-liso-transparente-texturado-enyesado-fondo-pared-aspera_46187-465.jpg" alt="profile-cover" class="img-responsive cover" />
+                    <div class="card-info">
+                        <img src="{{ usuario.foto_perfil.url }}" alt="user" class="profile-photo-lg" />
+                        <div class="friend-info">
+                        <a href="/chat/{{usuario.username}}" class="pull-right text-green">Abrir Chat</a>
+                        <h5><a href="{% url 'usuario:perfil_usuario' usuario.id %}" class="profile-link">{{ usuario.nombre }} {{ usuario.apellido }}</a></h5>
+                        <p>{{ chat.timestamp }}</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+</ul>
+
+{% endblock contenido %}
+
+{% block solicitudes %}
+
+{% endblock solicitudes %}
+

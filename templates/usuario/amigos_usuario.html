@@ -1,0 +1,73 @@
+{% extends 'usuario/perfil.html' %}
+{% load staticfiles  %}
+
+{% block titulo %}<title>Amigos de {{usuario.nombre}}</title>{% endblock titulo %}
+
+{% block detalle_user %}
+
+{% endblock detalle_user %}
+
+{% block perfil %}
+    </div>
+        <div id="page-contents">
+          <div class="row">
+            <div class="col-md-3">
+              
+              <!--Edit Profile Menu-->
+              {% if user.id == usuario.id %}
+              <ul class="edit-menu">
+              	<li class="active"><i class="icon ion-ios-information-outline"></i><a href="{% url 'usuario:editar_perfil' user.id %}">Informacion Basica</a></li>
+              	<li><i class="icon ion-heart"></i><a href="{% url 'usuario:editar_hobbies' user.id  %}">Gustos, Hobbies, más..</a></li>
+
+              	<li><i class="icon ion-ios-locked-outline"></i><a href="{% url 'password_change' %}">Cambia la contraseña</a></li>
+              </ul>
+              {% endif %}
+
+            </div>
+            <div class="col-md-7">
+
+              <!-- Basic Information
+              ================================================= -->
+        {% if perfiles_usuario %}
+            {% for perfil in perfiles_usuario %}
+                {% if perfil.id != usuario.id %}
+                <div class="col-md-6 col-sm-6">
+                    <div class="friend-card">
+                        <img src="https://image.freepik.com/foto-gratis/verde-claro-pintado-color-liso-transparente-texturado-enyesado-fondo-pared-aspera_46187-465.jpg" alt="profile-cover" class="img-responsive cover" />
+                        <div class="card-info">
+                            <img src="{{ perfil.foto_perfil.url }}" alt="user" class="profile-photo-lg" />
+                            <div class="friend-info">
+                                <a  class="pull-right text-green">Amigos</a>
+                                <h5><a href="{% url 'usuario:perfil_usuario' perfil.id %}" class="profile-link">{{ perfil.nombre }} {{ perfil.apellido }}</a></h5>
+                                <p>{{perfil.carrera }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+
+        {% else %}
+            <center><h1>No tienes amigos</h1></center>
+            <a class="btn btn-primary" href="#">Agregar Amigos</a>
+        {% endif %}
+
+
+            </div>           
+
+
+        <div class="col-md-2 static">
+{% endblock perfil %}
+
+  {% block editar_perfil %}
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTMXfmDn0VlqWIyoOxK8997L-amWbUPiQ&callback=initMap"></script>
+<script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/jquery.sticky-kit.min.js' %}"></script>
+<script src="{% static 'js/jquery.scrollbar.min.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+<script src="{% static 'js/visualizar_foto.js' %}"></script>
+{% endblock editar_perfil %}
+   
+

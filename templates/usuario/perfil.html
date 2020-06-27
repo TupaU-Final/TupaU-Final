@@ -1,0 +1,448 @@
+{% load staticfiles  %}
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="This is social network html5 template available in themeforest......" />
+		<meta name="keywords" content="Social Network, Social Media, Make Friends, Newsfeed, Profile Page" />
+		<meta name="robots" content="index, follow" />
+		{% block titulo %}<title>Perfil de {{usuario.nombre}}</title>{% endblock titulo %}
+    
+    <!-- Stylesheets
+    ================================================= -->
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" />
+  <link href="{% static 'css/emoji.css' %}" rel="stylesheet">
+    
+    <!--Google Font-->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,700i" rel="stylesheet">
+    
+    <!--Favicon-->
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/fav.png' %}"/>
+	</head>
+  <body>
+
+    <!-- Header
+    ================================================= -->
+		<header id="header">
+      <nav class="navbar navbar-default navbar-fixed-top menu">
+        <div class="container">
+
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'inicio' %}"><img src="{% static 'images/log4.png' %}" alt="logo" /></a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right main-menu">
+              <li><a href="{% url 'inicio' %}"> Inicio</a></li>
+                        </ul>
+          
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container -->
+      </nav>
+    </header>
+    <!--Header End-->
+
+    <div class="container">
+
+      <!-- perfil
+      ================================================= -->
+      <div class="timeline">
+        <div class="timeline-cover">
+
+          <!--Timeline Menu for Large Screens-->
+          <div class="timeline-nav-bar hidden-sm hidden-xs">
+            <div class="row">
+          {% block info_perfil %}
+              <div class="col-md-3">
+                <div class="profile-info">
+                    {% block imagen_perfil %}
+                      <img src="{{usuario.foto_perfil.url}}" alt="" class="img-responsive profile-photo" />
+                    {% endblock imagen_perfil %}
+                  <h3>{{ usuario.nombre }} {{ usuario.apellido }}</h3>
+                  <p class="text-muted">{{ usuario.tipo_usuario.nombre }} en {{ usuario.carrera }}</p>
+                </div>
+              </div>
+          {% endblock info_perfil %}
+
+              <div class="col-md-9">
+                <ul class="list-inline profile-menu">
+                  <li><a href="{% url 'usuario:perfil_usuario' user.id %}" class="active">Perfil</a></li>
+                  
+                  {% block amigos_user %}
+                    <li><a href="{% url 'usuario:amigos_usuario' usuario.id %}">Amigos</a></li>
+                  {% endblock amigos_user %}
+                  
+                  
+                  {% block detalle_perfil %}
+      
+                  {% block detalle_user %}
+                    <li><a href="{% url 'usuario:detalle_perfil_usuario' usuario.id%}">Detalle del Perfil</a></li>
+                  {% endblock detalle_user %}
+
+                  {% endblock %}
+                  {% if user.username == usuario.username %} 
+                    <li><a href="{% url 'usuario:editar_perfil' user.id %}">Editar Perfil</a></li>
+                  {% endif %}
+                </ul>
+                <ul class="follow-me list-inline">
+                  <li>{{ amigos.count }} Amigos</li>
+
+                  {% if user.id == usuario.id %}
+                    <li><a href="/chat" class="btn btn-primary">Mis Chats</a></li>
+                  {% else %}
+                  <li><a href="/chat/{{ usuario.username }}" class="btn btn-primary">Enviar Mensaje</a></li>
+                  {% endif %}
+                </ul>
+              </div>
+            </div>
+          </div><!--Timeline Menu for Large Screens End-->
+          
+          <!--Timeline Menu for Small Screens-->
+         <div class="navbar-mobile hidden-lg hidden-md">
+            <div class="profile-info">
+              <img src="{{user.foto_perfil.url}}" alt="" class="img-responsive profile-photo" />
+              <h4>{{ user.nombre }} {{ user.apellido }}</h4>
+              <p class="text-muted"></p>
+            </div>
+            <div class="mobile-menu">
+              <ul class="list-inline profile-menu">
+                  <li><a href="perfil.html" class="active">Perfil</a></li>
+                  <li><a href="fotos.html">Fotos</a></li>
+                  <li><a href="amigos.html">Amigos</a></li>
+                </ul>
+              <button class="btn-primary">Añadir amigos</button>
+            </div>
+          </div><!--Timeline Menu for Small Screens End-->
+
+        </div>
+
+  {% block perfil %}
+        <div id="page-contents">
+          <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-7">
+
+              <!-- Post 
+              ================================================= -->
+            {% if user.username == usuario.username %}
+  <form action="{% url 'publicacion:agregar_publicacion' %}" method="POST">
+            {% csrf_token %}
+            <div class="create-post">
+            	<div class="row">
+            		<div class="col-md-7 col-sm-7">
+                  <div class="form-group">
+                    <img src="{{ user.foto_perfil.url }}" alt="" class="profile-photo-md" />
+                    <textarea name="texto_publicacion" id="exampleTextarea" maxlength="150" cols="30" rows="1" class="form-control" placeholder="¿Que piensas hoy? " required></textarea>
+                    <input type="hidden" name="tipo_publicacion" value="3">                    
+                    <input type="hidden" name="usuario" value="{{ user.id }}">                    
+                  </div>
+                </div>
+            		<div class="col-md-5 col-sm-5">
+                  <div class="tools">
+                    <ul class="publishing-tools list-inline">
+                      <li><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agregarFoto"><i class="ion-images" name="archivo"></i></button></li>
+                      <li><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agregarVideo"><i class="ion-ios-videocam"></i></button></li>
+                    </ul>
+                    <br><br>  
+                    <button class="btn btn-primary pull-right" type="submit">Publicar</button>
+                 
+                  </div>
+                </div>
+            	</div>
+            </div><!-- Post -->
+          </form>
+            {% else %}
+                          <div class="create-post">
+                <div class="row">
+                  <div class="col-md-7 col-sm-7">
+                    <div class="form-group">
+                    </div>
+                  </div>
+                  <div class="col-md-5 col-sm-5">
+                    <div class="tools">
+                      <ul class="publishing-tools list-inline">
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div><!-- Post Create Box End-->
+            {% endif %}
+              <!-- Post Contenido
+              ================================================= -->
+              {% if publicacion %}
+
+                  {% for publicacion in publicacion %}
+
+                      {% if publicacion.tipo_publicacion.tipo_publicacion == "Foto" %}
+                    <div class="post-content">
+                     {% if publicacion.usuario.id == user.id %}
+                      <ul class="publishing-tools list-inline">
+                        <li style="position: relative; left: 92%; top: 10px;">
+                          <a href="{% url 'publicacion:eliminar_publicacion' publicacion.id %}" 
+                          title="Eliminar Publicacion" onClick="return confirm('¿Seguro que quieres borrar esta publicación?');">
+                            <i style="color: black" class="fas fa-times fa-2x"></i>
+                          </a>
+                        </li>
+                      </ul>
+                      {% endif %}
+
+                      <img src="{{publicacion.archivo.url}}" alt="post-image" class="img-responsive post-image" /> 
+                      
+                      <div class="post-container">
+                        <img src="{{ publicacion.usuario.foto_perfil.url }}" alt="user" class="profile-photo-md pull-left" />
+                        <div class="post-detail">
+                          <div class="user-info">
+                            <h5><a href="{% url 'usuario:perfil_usuario' publicacion.usuario.id  %}" class="profile-link">{{ publicacion.usuario.nombre }} {{ publicacion.usuario.apellido }}</a> <span class="following">Siguiendo</span></h5>
+                            <p class="text-muted">Subido {{ publicacion.fecha_hora_creacion }}</p>
+                          </div>
+                          <div class="reaction">
+                            <a class="btn text-green"><i class="icon ion-thumbsup"></i> 13</a>
+                            <a class="btn text-red"><i class="fa fa-thumbs-down"></i> 0</a>
+                          </div>
+                          <div class="line-divider"></div>
+                          <div class="post-text">
+                            <p>{{ publicacion.texto_publicacion }}</p>
+                          </div>
+                          <div class="line-divider"></div>
+                          {% for comentario in comentario %}
+                              {% if publicacion.id == comentario.publicacion.id %}
+                            <div class="post-comment">
+                              <img src="{{ comentario.usuario.foto_perfil.url }}" alt="" class="profile-photo-sm" />
+                              <p><a href="{% url 'usuario:perfil_usuario' comentario.usuario.id %}" class="profile-link"> {{ comentario.usuario.nombre }} {{ comentario.usuario.apellido }}: </a>{{ comentario.comentario }}</p>
+                            </div>
+                              {% endif %}
+                          {% endfor %}
+                          <div class="post-comment">
+                            <img src="{{ user.foto_perfil.url }}" alt="" class="profile-photo-sm" />
+                            <form action="{% url 'publicacion:agregar_comentario' %}" method="post">
+                              {% csrf_token %}
+                              <input type="text" class="form-control" name="comentario" placeholder="Agregar Comentario">
+                              <input type="hidden" name="usuario" value="{{ user.id }}">
+                              <input type="hidden" name="publicacion" value="{{ publicacion.id }}"}}>
+                              <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                      {% endif %}
+
+                      {% if publicacion.tipo_publicacion.tipo_publicacion == "Video" %}
+                        <div class="post-content">
+                          {% if publicacion.usuario.id == user.id %}
+                            <ul class="publishing-tools list-inline">
+                              <li style="position: relative; left: 92%; top: 10px;">
+                                <a href="{% url 'publicacion:eliminar_publicacion' publicacion.id %}" 
+                                title="Eliminar Publicacion" onClick="return confirm('¿Seguro que quieres borrar esta publicación?');">
+                                  <i style="color: black" class="fas fa-times fa-2x"></i>
+                                </a>
+                              </li>
+                            </ul>
+                          {% endif %}
+                            <video class="post-video" controls> <source src="{{publicacion.archivo.url}}" type="video/mp4"> </video>
+                          
+                          <div class="post-container">
+                            <img src="{{ publicacion.usuario.foto_perfil.url }}" alt="user" class="profile-photo-md pull-left" />
+                            <div class="post-detail">
+                              <div class="user-info">
+                                <h5><a href="{% url 'usuario:perfil_usuario' publicacion.usuario.id  %}" class="profile-link">{{ publicacion.usuario.nombre }} {{ publicacion.usuario.apellido }}</a> <span class="following">siguiendo</span></h5>
+                                <p class="text-muted">Subido {{ publicacion.fecha_hora_creacion }}</p>
+                              </div>
+                              <div class="reaction">
+                                <a class="btn text-green"><i class="icon ion-thumbsup"></i> 75</a>
+                                <a class="btn text-red"><i class="fa fa-thumbs-down"></i> 8</a>
+                              </div>
+                              <div class="line-divider"></div>
+                              <div class="post-text">
+                                <p>{{ publicacion.texto_publicacion }}</p>
+                              </div>
+                              <div class="line-divider"></div>
+                              {% for comentario in comentario %}
+                              {% if publicacion.id == comentario.publicacion.id %}
+                            <div class="post-comment">
+                              <img src="{{ comentario.usuario.foto_perfil.url }}" alt="" class="profile-photo-sm" />
+                              <p><a href="{% url 'usuario:perfil_usuario' comentario.usuario.id %}" class="profile-link"> {{ comentario.usuario.nombre }} {{ comentario.usuario.apellido }}: </a>{{ comentario.comentario }}</p>
+                            </div>
+                              {% endif %}
+                          {% endfor %}
+                              <div class="post-comment">
+                                <img src="{{ user.foto_perfil.url }}" alt="" class="profile-photo-sm" />
+                                <form action="{% url 'publicacion:agregar_comentario' %}" method="post">
+                                  {% csrf_token %}
+                                  <input type="text" class="form-control" name="comentario" placeholder="Agregar Comentario">
+                                  <input type="hidden" name="usuario" value="{{ user.id }}">
+                                  <input type="hidden" name="publicacion" value="{{ publicacion.id }}"}}>
+                                  <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      {% endif %}
+                      
+                      {% if publicacion.tipo_publicacion.tipo_publicacion == "Texto" %}
+                        <div class="post-content">
+                          {% if publicacion.usuario.id == user.id %}
+                            <ul class="publishing-tools list-inline">
+                              <li style="position: relative; left: 92%; top: 10px;">
+                                <a href="{% url 'publicacion:eliminar_publicacion' publicacion.id %}" 
+                                title="Eliminar Publicacion" onClick="return confirm('¿Seguro que quieres borrar esta publicación?');">
+                                  <i style="color: black" class="fas fa-times fa-2x"></i>
+                                </a>
+                              </li>
+                            </ul>
+                      {% endif %}
+                          <div class="post-text">
+                            <center><h3 style="color: black;">{{ publicacion.texto_publicacion }}</h3></center>
+                          </div>
+                      <br><br>
+                      <div class="post-container">
+                        <img src="{{ publicacion.usuario.foto_perfil.url }}" alt="user" class="profile-photo-md pull-left" />
+                        <div class="post-detail">
+                          <div class="user-info">
+                            <h5><a href="{% url 'usuario:perfil_usuario' publicacion.usuario.id  %}" class="profile-link">{{ publicacion.usuario.nombre }} {{ publicacion.usuario.apellido }}: </a> <span class="following">Siguiendo</span></h5>
+                            <p class="text-muted">Subido {{ publicacion.fecha_hora_creacion }}</p>
+                          </div>
+                          <div class="reaction">
+                            <a class="btn text-green"><i class="icon ion-thumbsup"></i> 13</a>
+                            <a class="btn text-red"><i class="fa fa-thumbs-down"></i> 0</a>
+                          </div>
+                          <div class="line-divider"></div>
+
+                          <div class="line-divider"></div>
+                            {% for comentario in comentario %}
+                            {% if publicacion.id == comentario.publicacion.id %}
+                          <div class="post-comment">
+                            <img src="{{ comentario.usuario.foto_perfil.url }}" alt="" class="profile-photo-sm" />
+                            <p><a href="{% url 'usuario:perfil_usuario' comentario.usuario.id %}" class="profile-link"> {{ comentario.usuario.nombre }} {{ comentario.usuario.apellido }}: </a> {{ comentario.comentario }}</p>
+                          </div>
+                            {% endif %}
+                        {% endfor %}
+                          <div class="post-comment">
+                            <img src="{{ user.foto_perfil.url }}" alt="" class="profile-photo-sm" />
+                            <form action="{% url 'publicacion:agregar_comentario' %}" method="POST"> 
+                              {% csrf_token %}
+                              <input type="text" class="form-control" name="comentario" placeholder="Agregar Comentario">
+                              <input type="hidden" name="usuario" value="{{ user.id }}">
+                              <input type="hidden" name="publicacion" value="{{ publicacion.id }}">
+                              <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                      {% endif %}
+                  {% endfor %}
+              
+                {% else %}
+                  <center><h1 style="color: black;">No existen Publicaciones</h1></center>
+                  <br>
+                  <center><h4 style="color: black;">Deberías agregar amigos. O agregar una publicación. <a href="{% url 'amigos:buscar' %}">Buscar Amigos</a></h4></center>
+                {% endif %}
+                </div>
+
+            <!-- Lateral izquierdo 
+              ================================================= -->
+             <div class="col-md-2 static">
+              
+              
+              <div id="sticky-sidebar">
+                <h4 class="grey">Actividad de {{ usuario.nombre }} {{ usuario.apellido }}</h4>
+                <div class="feed-item">
+                  <div class="live-activity">
+                    <p><a href="#" class="profile-link">{{ usuario.nombre }}</a> Commento una foto</p>
+                    <p class="text-muted">hace 5 minutos</p>
+                  </div>
+                </div>
+                <div class="feed-item">
+                  <div class="live-activity">
+                    <p><a href="#" class="profile-link">{{ usuario.nombre }}</a> Posteo un foto</p>
+                    <p class="text-muted">hace 1 hora</p>
+                  </div>
+                </div>
+                <div class="feed-item">
+                  <div class="live-activity">
+                    <p><a href="#" class="profile-link">{{ usuario.nombre }}</a> Le gustó la publicación de su amiga</p>
+                    <p class="text-muted">hace 4 horas</p>
+                  </div>
+                </div>
+                <div class="feed-item">
+                  <div class="live-activity">
+                    <p><a href="#" class="profile-link">{{ usuario.nombre }}</a> ha compartido un álbum</p>
+                    <p class="text-muted">hace 1 dia</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer
+    ================================================= -->
+    <footer id="footer">
+      <div class="container">
+        <div class="row">
+          <div class="footer-wrapper">
+            <div class="col-md-3 col-sm-3">
+              <a href=""><img src="images/logo-black.png" alt="" class="footer-logo" /></a>
+              
+            </div>
+    
+            <div class="col-md-2 col-sm-2">
+              <h5>Acerca de</h5>
+              <ul class="footer-links">
+                <li><a href="">Sobre nosotros</a></li>
+                <li><a href="">Términos Y Condiciones</a></li>
+               
+              </ul>
+            </div>
+            <div class="col-md-3 col-sm-3">
+              <h5>Contact Us</h5>
+              <ul class="contact">
+                <li><i class="icon ion-ios-telephone-outline"></i>+57 (350) 5272316</li>
+                <li><i class="icon ion-ios-location-outline"></i>Medellin, Colombia</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>Tupau © 2020. Todos los derechos reservados </p>
+      </div>
+    </footer>
+{% endblock perfil %} 
+    
+    <!--preloader-->
+    <div id="spinner-wrapper">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- Scripts
+    ================================================= -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTMXfmDn0VlqWIyoOxK8997L-amWbUPiQ&callback=initMap"></script>
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" data-search-pseudo-elements></script>
+    <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.sticky-kit.min.js' %}"></script>
+    <script src="{% static 'js/jquery.scrollbar.min.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/visualizar_foto.js' %}"></script>
+
+  </body>
+</html>
+{% block editar_perfil %}{% endblock editar_perfil %}

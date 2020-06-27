@@ -1,0 +1,25 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?Contrase=C3=B1a_restablecida_en_localhost=3A8000?=
+From: webmaster@localhost
+To: yesid@gmail.com
+Date: Thu, 04 Jun 2020 12:59:04 -0000
+Message-ID: <159127554427.1976.7434532656562254721@DESKTOP-ETDVLEM>
+
+
+Ha recibido este correo electrónico porque ha solicitado restablecer la contraseña para su cuenta en localhost:8000.
+
+Por favor, vaya a la página siguiente y escoja una nueva contraseña.
+
+http://localhost:8000/accounts/reset/Mjk/5h2-42cb5d93d9cb09ac94d0/
+
+Su nombre de usuario, en caso de haberlo olvidado: yesid@gmail.com
+
+¡Gracias por usar nuestro sitio!
+
+El equipo de localhost:8000
+
+
+
+-------------------------------------------------------------------------------

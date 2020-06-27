@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:600|Raleway:500&display=swap');
+.header {
+    width: 100%;
+}
+
+.header-logo {
+    background-size: 100%;
+    background-image: url(../img/ill.png);
+    background-repeat: no-repeat;
+}
+
+.container-header img {
+    padding: 10px;
+}
+
+.login {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+}
+
+.inicia-sesion {
+    font-family: 'Raleway', sans-serif;
+    color: #4f4f4f;
+}
+
+.registro {
+    font-size: 2.5em;
+    font-family: 'Raleway', sans-serif;
+    color: #4f4f4f;
+}
+
+.slogan {
+    font-family: 'Raleway', sans-serif;
+    color: #8f908f;
+}
+
+.label-login {
+    font-family: 'Raleway', sans-serif;
+    color: #2ae080;
+    font-size: 14px;
+}
+
+.input-form {
+    width: 100%;
+    border-radius: 20px;
+    border: 1px solid #8f908f;
+    padding: 6px;
+    outline: none;
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    color: #4f4f4f;
+}
+
+.btn-ingresar {
+    background-color: #2ae080;
+    color: #fff;
+    border: 2px solid #24ce75;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 8px;
+    outline: none;
+    padding-bottom: 8px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-family: 'Raleway', sans-serif;
+}
+
+.btn-crear-cuenta {
+    background-color: #f7f7f7;
+    color: #4f4f4f;
+    border: 2px solid #e9e9e9;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 8px;
+    outline: none;
+    padding-bottom: 8px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-family: 'Raleway', sans-serif;
+    position: relative;
+    left: 15px;
+}
+
+.olvidaste-pass a {
+    font-size: 14px;
+    color: #4f4f4f;
+    font-family: 'Raleway', sans-serif;
+}
+
+.posicion {
+    position: relative;
+    bottom: -10px;
+}
+
+#check {
+    bottom: -45px;
+    left: 25px;
+}
+
+.terminos {
+    color: #2ae080;
+}
