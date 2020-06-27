@@ -1,7 +1,6 @@
 ## TupaU 
 
-## Librerias usadas
- - Django==2.2.6
- - Pillow==7.1.2 
- - pip install django-import-export //Definir version compatible con nuestra version de Django
- - pip install django-ckeditor //Definir version compatible con nuestra version de Django
+TupaU es una red social para estudiantes de Universidades o cualquier academia.
+TupaU está pensado para que todo su entorno sea para los estudiantes de todo el mundo
+abarcando los temas mas importantes que se mueven en el entorno estudiantil ! 
+
